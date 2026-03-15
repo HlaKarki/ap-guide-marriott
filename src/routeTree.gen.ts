@@ -9,55 +9,48 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as pagesTestMdxIndexRouteImport } from './routes/(pages)/test-mdx/index'
 import { Route as pageslandingIndexRouteImport } from './routes/(pages)/(landing)/index'
+import { Route as pagesCategorySlugIndexRouteImport } from './routes/(pages)/$category/$slug/index'
 
-const pagesTestMdxIndexRoute = pagesTestMdxIndexRouteImport.update({
-  id: '/(pages)/test-mdx/',
-  path: '/test-mdx/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const pageslandingIndexRoute = pageslandingIndexRouteImport.update({
   id: '/(pages)/(landing)/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
+  id: '/(pages)/$category/$slug/',
+  path: '/$category/$slug/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof pageslandingIndexRoute
-  '/test-mdx/': typeof pagesTestMdxIndexRoute
+  '/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof pageslandingIndexRoute
-  '/test-mdx': typeof pagesTestMdxIndexRoute
+  '/$category/$slug': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(pages)/(landing)/': typeof pageslandingIndexRoute
-  '/(pages)/test-mdx/': typeof pagesTestMdxIndexRoute
+  '/(pages)/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test-mdx/'
+  fullPaths: '/' | '/$category/$slug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test-mdx'
-  id: '__root__' | '/(pages)/(landing)/' | '/(pages)/test-mdx/'
+  to: '/' | '/$category/$slug'
+  id: '__root__' | '/(pages)/(landing)/' | '/(pages)/$category/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   pageslandingIndexRoute: typeof pageslandingIndexRoute
-  pagesTestMdxIndexRoute: typeof pagesTestMdxIndexRoute
+  pagesCategorySlugIndexRoute: typeof pagesCategorySlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(pages)/test-mdx/': {
-      id: '/(pages)/test-mdx/'
-      path: '/test-mdx'
-      fullPath: '/test-mdx/'
-      preLoaderRoute: typeof pagesTestMdxIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(pages)/(landing)/': {
       id: '/(pages)/(landing)/'
       path: '/'
@@ -65,12 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof pageslandingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(pages)/$category/$slug/': {
+      id: '/(pages)/$category/$slug/'
+      path: '/$category/$slug'
+      fullPath: '/$category/$slug/'
+      preLoaderRoute: typeof pagesCategorySlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   pageslandingIndexRoute: pageslandingIndexRoute,
-  pagesTestMdxIndexRoute: pagesTestMdxIndexRoute,
+  pagesCategorySlugIndexRoute: pagesCategorySlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
