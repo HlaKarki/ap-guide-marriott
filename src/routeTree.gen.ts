@@ -9,50 +9,68 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as pagesTestMdxIndexRouteImport } from './routes/(pages)/test-mdx/index'
+import { Route as pageslandingIndexRouteImport } from './routes/(pages)/(landing)/index'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const pagesTestMdxIndexRoute = pagesTestMdxIndexRouteImport.update({
+  id: '/(pages)/test-mdx/',
+  path: '/test-mdx/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const pageslandingIndexRoute = pageslandingIndexRouteImport.update({
+  id: '/(pages)/(landing)/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof pageslandingIndexRoute
+  '/test-mdx/': typeof pagesTestMdxIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof pageslandingIndexRoute
+  '/test-mdx': typeof pagesTestMdxIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(pages)/(landing)/': typeof pageslandingIndexRoute
+  '/(pages)/test-mdx/': typeof pagesTestMdxIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/test-mdx/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/test-mdx'
+  id: '__root__' | '/(pages)/(landing)/' | '/(pages)/test-mdx/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  pageslandingIndexRoute: typeof pageslandingIndexRoute
+  pagesTestMdxIndexRoute: typeof pagesTestMdxIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/(pages)/test-mdx/': {
+      id: '/(pages)/test-mdx/'
+      path: '/test-mdx'
+      fullPath: '/test-mdx/'
+      preLoaderRoute: typeof pagesTestMdxIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(pages)/(landing)/': {
+      id: '/(pages)/(landing)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof pageslandingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  pageslandingIndexRoute: pageslandingIndexRoute,
+  pagesTestMdxIndexRoute: pagesTestMdxIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
