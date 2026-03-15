@@ -1,0 +1,24 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.output
+.vercel
+.netlify
+
+# Generated files
+*.gen.ts
+worker-configuration.d.ts
+
+# Cache directories
+.tanstack
+.wrangler
+.vscode
+.idea
+
+# Lock files
+bun.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
