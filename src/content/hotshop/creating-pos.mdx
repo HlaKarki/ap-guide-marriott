@@ -9,17 +9,49 @@ featured: true
 
 # Creating Purchase Orders
 
-This is a test article to verify MDX works on Cloudflare Workers.
+How to create a new purchase order in HotShop from start to finish.
 
 ## Step 1: Open HotShop
 
 Navigate to the HotShop portal and log in with your credentials.
 
-## Step 2: Create the PO
+{/* Standard image — just markdown, points to your R2 bucket */}
+![HotShop login screen](https://r2.hla.dev/marriott/hotshop/login-screen.png)
 
-1. Click **New Purchase Order**
-2. Fill in the vendor details
-3. Add line items
-4. Submit for approval
+## Step 2: Click "New Purchase Order"
 
-> **Tip:** Always double-check the GL codes before submitting.
+From the dashboard, click the **New Purchase Order** button in the top right.
+
+{/* Image with a caption underneath */}
+![New PO button location](https://r2.hla.dev/marriott/hotshop/new-po-button.png)
+*The button is in the top-right corner of the dashboard.*
+
+## Step 3: Fill in the details
+
+1. Select the **vendor** from the dropdown
+2. Enter the **GL code** (ask your manager if unsure)
+3. Add line items with descriptions and amounts
+4. Double-check the **total** matches your invoice
+
+{/* Video walkthrough — just an HTML video tag, MDX supports it */}
+<video controls width="100%">
+  <source src="https://r2.hla.dev/marriott/hotshop/creating-po-walkthrough.mp4" type="video/mp4" />
+</video>
+
+> **Tip:** Always double-check the GL codes before submitting. Wrong GL codes are the #1 reason POs get kicked back.
+
+## Step 4: Submit for approval
+
+Click **Submit**. Your manager will get an email notification to approve it.
+
+| Status | What it means |
+|--------|--------------|
+| **Pending** | Waiting for manager approval |
+| **Approved** | Ready to send to vendor |
+| **Rejected** | Check the comments for why |
+
+## Common mistakes
+
+- **Wrong GL code** — double check with the chart of accounts
+- **Missing vendor** — if the vendor isn't in the dropdown, see [Adding a New Vendor](/hotshop/adding-vendors)
+- **Duplicate PO** — search existing POs first before creating a new one
