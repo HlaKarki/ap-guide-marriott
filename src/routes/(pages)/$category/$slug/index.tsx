@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getArticle } from "@/content";
+import { Callout, Steps, Step } from "@/components/mdx";
 
 export const Route = createFileRoute("/(pages)/$category/$slug/")({
   component: ArticlePage,
@@ -32,7 +33,7 @@ function ArticlePage() {
           <h1 className="text-3xl font-bold">{frontmatter.title}</h1>
         </div>
         <article className="prose prose-lg max-w-none">
-          <Content />
+          <Content components={{ Callout, Steps, Step }} />
         </article>
       </div>
     </div>
