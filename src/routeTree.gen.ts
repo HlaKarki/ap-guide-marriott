@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as pageslandingIndexRouteImport } from './routes/(pages)/(landing)/index'
+import { Route as pagesCategoryIndexRouteImport } from './routes/(pages)/$category/index'
 import { Route as pagesCategorySlugIndexRouteImport } from './routes/(pages)/$category/$slug/index'
 
 const pageslandingIndexRoute = pageslandingIndexRouteImport.update({
   id: '/(pages)/(landing)/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const pagesCategoryIndexRoute = pagesCategoryIndexRouteImport.update({
+  id: '/(pages)/$category/',
+  path: '/$category/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
@@ -24,27 +30,35 @@ const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/$category/': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesByTo {
+  '/$category': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/(pages)/$category/': typeof pagesCategoryIndexRoute
   '/(pages)/(landing)/': typeof pageslandingIndexRoute
   '/(pages)/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$category/$slug/'
+  fullPaths: '/$category/' | '/' | '/$category/$slug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$category/$slug'
-  id: '__root__' | '/(pages)/(landing)/' | '/(pages)/$category/$slug/'
+  to: '/$category' | '/' | '/$category/$slug'
+  id:
+    | '__root__'
+    | '/(pages)/$category/'
+    | '/(pages)/(landing)/'
+    | '/(pages)/$category/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  pagesCategoryIndexRoute: typeof pagesCategoryIndexRoute
   pageslandingIndexRoute: typeof pageslandingIndexRoute
   pagesCategorySlugIndexRoute: typeof pagesCategorySlugIndexRoute
 }
@@ -58,6 +72,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof pageslandingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(pages)/$category/': {
+      id: '/(pages)/$category/'
+      path: '/$category'
+      fullPath: '/$category/'
+      preLoaderRoute: typeof pagesCategoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(pages)/$category/$slug/': {
       id: '/(pages)/$category/$slug/'
       path: '/$category/$slug'
@@ -69,6 +90,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  pagesCategoryIndexRoute: pagesCategoryIndexRoute,
   pageslandingIndexRoute: pageslandingIndexRoute,
   pagesCategorySlugIndexRoute: pagesCategorySlugIndexRoute,
 }

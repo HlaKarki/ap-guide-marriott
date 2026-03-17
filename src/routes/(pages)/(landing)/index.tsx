@@ -54,17 +54,22 @@ function HomePage() {
 
       {/* All Categories */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Browse by Category</h2>
+        <h2 className="text-xl font-semibold mb-4">Browse Recordings by Category</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((category) => {
             const count = articles.filter((a) => a.category === category).length;
             return (
-              <div key={category} className="rounded-lg border border-gray-200 p-4">
+              <Link
+                key={category}
+                to="/$category"
+                params={{ category }}
+                className="block rounded-lg border border-gray-200 p-4 hover:border-blue-400 hover:shadow-sm transition-all"
+              >
                 <p className="font-medium capitalize">{category}</p>
                 <p className="text-sm text-gray-400">
                   {count} {count === 1 ? "guide" : "guides"}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </div>
