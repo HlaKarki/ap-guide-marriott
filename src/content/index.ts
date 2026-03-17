@@ -55,7 +55,13 @@ export function getCategories(): string[] {
   return [...new Set(articles.map((a) => a.category))];
 }
 
-export function getArticlesGroupedBySubcategory(category: string): Map<string, Article[]> {
+const subcategoryOrder: Record<string, string[]> = {
+  HotShop: ["PO Creation", "Receiving", "ReadSoft", "Exceptions", "Reports"],
+  PSAP: ["Invoice Request", "Vendor"],
+  Walkthroughs: ["Daily", "Weekly", "Monthly", "Tips"],
+};
+
+export function getArticlesGroupedBySubcategory(category: string): [string, Article[]][] {
   const categoryArticles = getArticlesByCategory(category);
   const grouped = new Map<string, Article[]>();
 
@@ -66,5 +72,13 @@ export function getArticlesGroupedBySubcategory(category: string): Map<string, A
     grouped.set(sub, existing);
   }
 
-  return grouped;
+  const order = subcategoryOrder[category] ?? [];
+
+  return [...grouped.entries()].sort((a, b) => {
+    const aIndex = order.indexOf(a[0]);
+    const bIndex = order.indexOf(b[0]);
+    const aPos = aIndex === -1 ? Infinity : aIndex;
+    const bPos = bIndex === -1 ? Infinity : bIndex;
+    return aPos - bPos;
+  });
 }

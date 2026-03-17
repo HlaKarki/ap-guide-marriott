@@ -51,7 +51,7 @@ function HomePage() {
                 params={{ category }}
                 className="block rounded-lg border border-gray-200 p-4 hover:border-blue-400 hover:shadow-sm transition-all"
               >
-                <p className="font-medium capitalize">{category}</p>
+                <p className="font-medium">{category}</p>
                 <p className="text-sm text-gray-400">
                   {count} {count === 1 ? "Video" : "Videos"}
                 </p>
