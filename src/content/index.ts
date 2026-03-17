@@ -4,10 +4,12 @@ import type { JSX } from "react";
 export type ArticleFrontmatter = {
   title: string;
   category: string;
+  subcategory?: string;
   tags: string[];
   keywords: string[];
   updated: string;
   featured?: boolean;
+  videoOnly?: boolean;
 };
 
 type MDXModule = {
@@ -25,7 +27,6 @@ export type Article = {
 };
 
 export const articles: Article[] = Object.entries(mdxModules).map(([path, mod]) => {
-  // path looks like "./hotshop/creating-pos.mdx"
   const parts = path.replace("./", "").replace(".mdx", "").split("/");
   const category = parts[0];
   const slug = parts[1];
@@ -52,4 +53,18 @@ export function getArticlesByCategory(category: string): Article[] {
 
 export function getCategories(): string[] {
   return [...new Set(articles.map((a) => a.category))];
+}
+
+export function getArticlesGroupedBySubcategory(category: string): Map<string, Article[]> {
+  const categoryArticles = getArticlesByCategory(category);
+  const grouped = new Map<string, Article[]>();
+
+  for (const article of categoryArticles) {
+    const sub = article.frontmatter.subcategory ?? "General";
+    const existing = grouped.get(sub) ?? [];
+    existing.push(article);
+    grouped.set(sub, existing);
+  }
+
+  return grouped;
 }

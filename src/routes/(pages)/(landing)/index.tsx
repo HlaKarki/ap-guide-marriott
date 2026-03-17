@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { articles, getCategories, getFeaturedArticles } from "@/content";
 
 export const Route = createFileRoute("/(pages)/(landing)/")({
@@ -7,26 +6,13 @@ export const Route = createFileRoute("/(pages)/(landing)/")({
 });
 
 function HomePage() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const featured = getFeaturedArticles();
   const categories = getCategories();
 
   return (
     <div className="min-h-screen py-16 px-6 max-w-4xl mx-auto">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold mb-3">AP Guide</h1>
-        <p className="text-gray-500 text-lg">Search for anything or browse the common guides below.</p>
-      </div>
-
-      {/* Search - placeholder for now */}
-      <div className="mb-12">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search guides... (e.g. 'how to create a PO')"
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <h1 className="text-4xl font-bold mb-3">Accounts Payable Guide - Marriott</h1>
       </div>
 
       {/* Featured / Common Guides */}
@@ -67,7 +53,7 @@ function HomePage() {
               >
                 <p className="font-medium capitalize">{category}</p>
                 <p className="text-sm text-gray-400">
-                  {count} {count === 1 ? "guide" : "guides"}
+                  {count} {count === 1 ? "Video" : "Videos"}
                 </p>
               </Link>
             );
