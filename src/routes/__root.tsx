@@ -11,8 +11,8 @@ export const Route = createRootRoute({
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-2">404</h1>
-        <p className="text-gray-500 mb-4">Page not found</p>
-        <Link to="/" className="text-blue-600 hover:underline">
+        <p className="text-muted-foreground mb-4">Page not found</p>
+        <Link to="/" className="text-brand hover:underline">
           Back to home
         </Link>
       </div>
@@ -32,6 +32,10 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -75,6 +79,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <footer className="mt-2 pb-4 text-center text-xs text-muted-foreground">
+          made with ♥ by{" "}
+          <a href="https://hla.dev" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
+            hla.dev
+          </a>
+        </footer>
         {/*<Chat />*/}
         <TanStackDevtools
           config={{
