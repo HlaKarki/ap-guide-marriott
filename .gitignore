@@ -12,6 +12,6 @@ dist-ssr
 __unconfig*
 todos.json
 
-.dev.vars*
+.env.local
 !.dev.vars.example
 !.env.example

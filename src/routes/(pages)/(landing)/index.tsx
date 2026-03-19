@@ -40,7 +40,7 @@ function HomePage() {
 
       {/* All Categories */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Browse Recordings by Category</h2>
+        <h2 className="text-xl font-semibold mb-4">Recordings by Category</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((category) => {
             const count = articles.filter((a) => a.category === category).length;
