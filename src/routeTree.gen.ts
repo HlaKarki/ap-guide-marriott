@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ApiAnalyticsRouteImport } from './routes/api/analytics'
 import { Route as pageslandingIndexRouteImport } from './routes/(pages)/(landing)/index'
 import { Route as pagesCategoryIndexRouteImport } from './routes/(pages)/$category/index'
 import { Route as pagesCategorySlugIndexRouteImport } from './routes/(pages)/$category/$slug/index'
 
+const ApiAnalyticsRoute = ApiAnalyticsRouteImport.update({
+  id: '/api/analytics',
+  path: '/api/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const pageslandingIndexRoute = pageslandingIndexRouteImport.update({
   id: '/(pages)/(landing)/',
   path: '/',
@@ -30,34 +36,39 @@ const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/api/analytics': typeof ApiAnalyticsRoute
   '/$category/': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesByTo {
+  '/api/analytics': typeof ApiAnalyticsRoute
   '/$category': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/api/analytics': typeof ApiAnalyticsRoute
   '/(pages)/$category/': typeof pagesCategoryIndexRoute
   '/(pages)/(landing)/': typeof pageslandingIndexRoute
   '/(pages)/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/$category/' | '/' | '/$category/$slug/'
+  fullPaths: '/api/analytics' | '/$category/' | '/' | '/$category/$slug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/$category' | '/' | '/$category/$slug'
+  to: '/api/analytics' | '/$category' | '/' | '/$category/$slug'
   id:
     | '__root__'
+    | '/api/analytics'
     | '/(pages)/$category/'
     | '/(pages)/(landing)/'
     | '/(pages)/$category/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  ApiAnalyticsRoute: typeof ApiAnalyticsRoute
   pagesCategoryIndexRoute: typeof pagesCategoryIndexRoute
   pageslandingIndexRoute: typeof pageslandingIndexRoute
   pagesCategorySlugIndexRoute: typeof pagesCategorySlugIndexRoute
@@ -65,6 +76,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/api/analytics': {
+      id: '/api/analytics'
+      path: '/api/analytics'
+      fullPath: '/api/analytics'
+      preLoaderRoute: typeof ApiAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(pages)/(landing)/': {
       id: '/(pages)/(landing)/'
       path: '/'
@@ -90,6 +108,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  ApiAnalyticsRoute: ApiAnalyticsRoute,
   pagesCategoryIndexRoute: pagesCategoryIndexRoute,
   pageslandingIndexRoute: pageslandingIndexRoute,
   pagesCategorySlugIndexRoute: pagesCategorySlugIndexRoute,
