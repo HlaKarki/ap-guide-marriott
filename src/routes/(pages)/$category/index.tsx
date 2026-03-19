@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { getArticlesGroupedBySubcategory } from "@/content";
+import { ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/(pages)/$category/")({
   component: CategoryPage,
@@ -21,20 +22,30 @@ function CategoryPage() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-6 max-w-4xl mx-auto">
+    <div className="py-12 px-6 max-w-4xl mx-auto">
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-8">
+        <Link to="/" className="hover:text-foreground transition-colors">
+          Home
+        </Link>
+        <ChevronRight size={12} />
+        <span className="text-foreground">{category}</span>
+      </nav>
+
       <h1 className="text-3xl font-bold mb-8">{category}</h1>
+
       {grouped.map(([subcategory, articles]) => (
         <section key={subcategory} className="mb-8">
-          <h2 className="text-lg font-semibold text-muted-foreground mb-3">{subcategory}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-3">{subcategory}</h2>
+          <div className="space-y-1">
             {articles.map((article) => (
               <Link
                 key={article.slug}
                 to="/$category/$slug"
                 params={{ category: article.category, slug: article.slug }}
-                className="block rounded-lg border border-border p-4 hover:border-brand hover:shadow-sm transition-all"
+                className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm hover:bg-secondary transition-colors"
               >
-                <p className="font-medium">{article.frontmatter.title}</p>
+                <span>{article.frontmatter.title}</span>
               </Link>
             ))}
           </div>

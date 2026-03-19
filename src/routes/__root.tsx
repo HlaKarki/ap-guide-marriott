@@ -3,6 +3,8 @@ import { HeadContent, Link, Scripts, createRootRoute } from "@tanstack/react-rou
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { Chat } from "../components/Chat";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 import appCss from "../styles.css?url";
 
@@ -29,6 +31,10 @@ export const Route = createRootRoute({
       },
       {
         title: "AP Guide - Marriott",
+      },
+      {
+        name: "description",
+        content: "Accounts Payable Guide ",
       },
     ],
     links: [
@@ -78,13 +84,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
-        <footer className="mt-2 pb-4 text-center text-xs text-muted-foreground">
-          made with ♥ by{" "}
-          <a href="https://hla.dev" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
-            hla.dev
-          </a>
-        </footer>
+        <Header />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
         {/*<Chat />*/}
         <TanStackDevtools
           config={{

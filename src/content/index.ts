@@ -52,8 +52,15 @@ export function getArticlesByCategory(category: string): Article[] {
 }
 
 export function getCategories(): string[] {
-  return [...new Set(articles.map((a) => a.category))];
+  const unique = [...new Set(articles.map((a) => a.category))];
+  return unique.sort((a, b) => {
+    const aIdx = categoryOrder.indexOf(a);
+    const bIdx = categoryOrder.indexOf(b);
+    return (aIdx === -1 ? Infinity : aIdx) - (bIdx === -1 ? Infinity : bIdx);
+  });
 }
+
+const categoryOrder = ["Walkthroughs", "HotShop", "PSAP", "General Cashier", "Tips"];
 
 const subcategoryOrder: Record<string, string[]> = {
   HotShop: ["PO Creation", "Receiving", "ReadSoft", "Exceptions", "Reports"],
