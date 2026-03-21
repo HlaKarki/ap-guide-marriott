@@ -7,9 +7,7 @@ export function Header() {
         <Link to="/" className="text-sm font-semibold tracking-tight hover:text-brand transition-colors">
           <div className="flex gap-2 items-baseline">
             <span className="text-lg font-semibold">AP Guide</span>
-            <span className="text-muted-foreground font-normal text-sm">
-              Marriott AP
-            </span>
+            <span className="text-muted-foreground font-normal text-sm">Marriott</span>
           </div>
         </Link>
       </div>
