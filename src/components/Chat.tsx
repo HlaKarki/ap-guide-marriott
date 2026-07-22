@@ -7,7 +7,7 @@ export function Chat() {
   const [open, setOpen] = useState(false);
 
   const { messages, sendMessage, isLoading } = useChat({
-    connection: fetchServerSentEvents(`${import.meta.env.VITE_SERVER_URL}/marriott/chat`),
+    connection: fetchServerSentEvents("/api/marriott/chat"),
   });
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
