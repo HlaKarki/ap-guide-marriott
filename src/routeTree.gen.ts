@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ApiAnalyticsRouteImport } from './routes/api/analytics'
 import { Route as pageslandingIndexRouteImport } from './routes/(pages)/(landing)/index'
 import { Route as pagesCategoryIndexRouteImport } from './routes/(pages)/$category/index'
+import { Route as ApiMarriottChatRouteImport } from './routes/api/marriott.chat'
 import { Route as pagesCategorySlugIndexRouteImport } from './routes/(pages)/$category/$slug/index'
 
 const ApiAnalyticsRoute = ApiAnalyticsRouteImport.update({
@@ -29,6 +30,11 @@ const pagesCategoryIndexRoute = pagesCategoryIndexRouteImport.update({
   path: '/$category/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMarriottChatRoute = ApiMarriottChatRouteImport.update({
+  id: '/api/marriott/chat',
+  path: '/api/marriott/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
   id: '/(pages)/$category/$slug/',
   path: '/$category/$slug/',
@@ -37,12 +43,14 @@ const pagesCategorySlugIndexRoute = pagesCategorySlugIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/api/analytics': typeof ApiAnalyticsRoute
+  '/api/marriott/chat': typeof ApiMarriottChatRoute
   '/$category/': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/api/analytics': typeof ApiAnalyticsRoute
+  '/api/marriott/chat': typeof ApiMarriottChatRoute
   '/$category': typeof pagesCategoryIndexRoute
   '/': typeof pageslandingIndexRoute
   '/$category/$slug': typeof pagesCategorySlugIndexRoute
@@ -50,18 +58,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/api/analytics': typeof ApiAnalyticsRoute
+  '/api/marriott/chat': typeof ApiMarriottChatRoute
   '/(pages)/$category/': typeof pagesCategoryIndexRoute
   '/(pages)/(landing)/': typeof pageslandingIndexRoute
   '/(pages)/$category/$slug/': typeof pagesCategorySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/api/analytics' | '/$category/' | '/' | '/$category/$slug/'
+  fullPaths:
+    | '/api/analytics'
+    | '/api/marriott/chat'
+    | '/$category/'
+    | '/'
+    | '/$category/$slug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/api/analytics' | '/$category' | '/' | '/$category/$slug'
+  to:
+    | '/api/analytics'
+    | '/api/marriott/chat'
+    | '/$category'
+    | '/'
+    | '/$category/$slug'
   id:
     | '__root__'
     | '/api/analytics'
+    | '/api/marriott/chat'
     | '/(pages)/$category/'
     | '/(pages)/(landing)/'
     | '/(pages)/$category/$slug/'
@@ -69,6 +89,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   ApiAnalyticsRoute: typeof ApiAnalyticsRoute
+  ApiMarriottChatRoute: typeof ApiMarriottChatRoute
   pagesCategoryIndexRoute: typeof pagesCategoryIndexRoute
   pageslandingIndexRoute: typeof pageslandingIndexRoute
   pagesCategorySlugIndexRoute: typeof pagesCategorySlugIndexRoute
@@ -97,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof pagesCategoryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/marriott/chat': {
+      id: '/api/marriott/chat'
+      path: '/api/marriott/chat'
+      fullPath: '/api/marriott/chat'
+      preLoaderRoute: typeof ApiMarriottChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(pages)/$category/$slug/': {
       id: '/(pages)/$category/$slug/'
       path: '/$category/$slug'
@@ -109,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRoute: ApiAnalyticsRoute,
+  ApiMarriottChatRoute: ApiMarriottChatRoute,
   pagesCategoryIndexRoute: pagesCategoryIndexRoute,
   pageslandingIndexRoute: pageslandingIndexRoute,
   pagesCategorySlugIndexRoute: pagesCategorySlugIndexRoute,
